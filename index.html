@@ -247,6 +247,126 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/18/MySql_ZIP_Intsall_on_windows/" itemprop="url">
+                  在 windows 10 上安装 解压缩版 MySql
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-18T08:29:54+08:00" content="2016-07-18">
+              2016-07-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/18/MySql_ZIP_Intsall_on_windows/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/18/MySql_ZIP_Intsall_on_windows/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/18/MySql_ZIP_Intsall_on_windows/" class="leancloud_visitors" data-flag-title="在 windows 10 上安装 解压缩版 MySql">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="下载-解压"><a href="#下载-解压" class="headerlink" title="下载 解压"></a>下载 解压</h4><p>Mysql  ：版本 5.7.13   <a href="http://120.52.73.10/cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.13-winx64.zip" target="_blank" rel="external">下载链接 </a> （通过这个官网zip链接可以直接下载，不用再注册 Oracle 账号了）<br>解压 mysql-5.7.13-winx64.zip 到 任意目录，我解压到了 “D:/Program Files/mysql/mysql-5.7.13-winx64” </p>
+<h4 id="配置系统变量"><a href="#配置系统变量" class="headerlink" title="配置系统变量"></a>配置系统变量</h4><p>在系统变量 PATH 中加一条 “D:\Program Files\mysql\mysql-5.7.13-winx64\bin”</p>
+<h4 id="修改默认配置文件"><a href="#修改默认配置文件" class="headerlink" title="修改默认配置文件"></a>修改默认配置文件</h4><p>在目录 “mysql-5.7.13-winx64” 下有配置文件 my-default.ini ，复制一份为 my.ini。<br>修改 my.ini 中的 basedir 和 datadir<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">basedir =  <span class="string">"D:/Program Files/mysql/mysql-5.7.13-winx64"</span></div><div class="line"></div><div class="line"><span class="comment"># 执行mysqld  --initialize命令后会初始化这个目录</span></div><div class="line">datadir = <span class="string">"D:/Program Files/mysql/mysql-5.7.13-winx64/data"</span></div><div class="line"></div><div class="line"><span class="comment"># server_id 也一定要设，不然会报错 [ERROR] You have enabled the binary log, but you haven't provided the mandatory server-id.Please refer to the proper server start-up parameters documentation</span></div><div class="line"><span class="comment"># 2016-07-18T15:29:23.097024Z 0 [ERROR] Aborting</span></div><div class="line">server_id = <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>在  mysql-5.7.13-winx64\bin  目录下执行  <code>mysqld  --initialize --console</code>，一定要是 bin 目录,并且一定要有 –console ，最后一行可以看到生成的密码，看不到密码可不就不能登录了么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PS D:\Program Files\mysql\mysql-5.7.13-winx64\bin&gt; mysqld  --initialize --console</div><div class="line">2016-07-18T15:56:17.820761Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defau</div><div class="line">lts_for_timestamp server option (see documentation for more details).</div><div class="line">...</div><div class="line">...</div><div class="line">...</div><div class="line">2016-07-18T15:56:18.449148Z 1 [Note] A temporary password is generated for  root@localhost: :esIkHCaG2,d</div></pre></td></tr></table></figure></p>
+<p>这条命令会在 my.ini 设定的 datadir 目录下初始化生成很多文件。如图<br> <img src="/images/mysql_data.png" alt="mysql_data"></p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>然后安装 mysql   <code>mysqld install</code>   重装 mysql 时需要 卸载 mysql  ，命令 <code>mysqld remove</code></p>
+<p>然后启动 mysql </p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PS D:\Program Files\mysql\mysql-<span class="number">5.7</span>.<span class="number">13</span>-winx64\bin&gt; net start mysql</div><div class="line">MySQL 服务正在启动 .</div><div class="line">MySQL 服务已经启动成功。</div></pre></td></tr></table></figure>
+<p>运行命令 <code>bin\mysql_secure_installation.exe</code> 进行 安全化设置，比如 重置密码，是否允许远程访问。</p>
+<p>启动 mysql后 运行 <code>mysql -u root -p</code>  即可进行数据库操作了，比如用以下命令看看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 显示有哪些数据库</div><div class="line">show databases;</div><div class="line"># 进入数据库</div><div class="line">use test;</div><div class="line"># 显示表</div><div class="line">show tables;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/18/idea_spring_restfulapi/" itemprop="url">
                   Intellij IDEA Community 上用 Spring 开发 RestfulAPi 风格的接口
                 </a>
@@ -508,7 +628,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
